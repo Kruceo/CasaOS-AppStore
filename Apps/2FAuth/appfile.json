@@ -29,20 +29,27 @@
 	"support": "https://discord.gg/knqAbbBbeX",
 	"website": "",
 	"container": {
-		"image": "2fauth/2fauth:latest",
+		"image": "clickhouse/clickhouse-server",
 		"shell": "sh",
 		"privileged": false,
 		"network_model": "bridge",
 		"web_ui": {
-			"http": "8000",
 			"path": "/"
 		},
 		"health_check": "",
 		"envs": [],
 		"ports": [
 			{
-				"container": "8000",
-				"host": "8000",
+				"container": "8123",
+				"host": "8123",
+				"type": "tcp",
+				"allocation": "automatic",
+				"configurable": "no",
+				"description": ""
+			},
+			{
+				"container": "9000",
+				"host": "9000",
 				"type": "tcp",
 				"allocation": "automatic",
 				"configurable": "no",
@@ -51,7 +58,7 @@
 		],
 		"volumes": [
 			{
-				"container": "/2fauth",
+				"container": "/var/lib/clickhouse",
 				"host": "/DATA/AppData/$AppID",
 				"mode": "rw",
 				"allocation": "automatic",
