@@ -1,56 +1,47 @@
-name: 2fauth
+name: clickhouse
 services:
-  2fauth:
-    image: 2fauth/2fauth:5.4.3
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
     deploy:
       resources:
         reservations:
           memory: 64M
     network_mode: bridge
     ports:
-      - target: 8000
-        published: "8000"
+      - target: 8123
+        published: "8123"
+        protocol: tcp
+      - target: 9000
+        published: "9000"
         protocol: tcp
     restart: always
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID
-        target: /2fauth
+        target: /var/lib/clickhouse
     x-casaos:
       ports:
-        - container: "8000"
+        - container: "8123"
           description:
             en_us: ""
       volumes:
-        - container: /2fauth
+        - container: /var/lib/clickhouse
           description:
             en_us: ""
-    container_name: 2fauth
+    container_name: clickhouse
 x-casaos:
   architectures:
     - amd64
     - "386"
     - arm64
     - arm
-  main: 2fauth
-  author: CasaOS Team
-  category: Utilities
+  main: clickhouse
+  author: Kruceo
+  category: Database
   description:
     en_us: 2FAuth is a web based self-hosted alternative to One Time Passcode (OTP) generators like Google Authenticator, designed for both mobile and desktop.
-    zh_cn: 2FAuth是一个基于Web的自托管的替代Google Authenticator的一次性密码（OTP）生成器，旨在为移动和桌面设备提供服务。
-    ar_sa: 2FAuth هو بديل مستضاف لنفسه لمولدات رمز واحد (OTP) مثل Google Authenticator ، مصممة للجوال وسطح المكتب.
-    de_de: 2FAuth ist eine webbasierte selbst gehostete Alternative zu One Time Passcode (OTP) Generatoren wie Google Authenticator, die für mobile und Desktop-Geräte entwickelt wurde.
-    es_es: 2FAuth es una alternativa autohospedada basada en web a los generadores de códigos de un solo uso (OTP) como Google Authenticator, diseñada para móviles y escritorio.
-    fr_fr: 2FAuth est une alternative auto-hébergée basée sur le web aux générateurs de codes à usage unique (OTP) tels que Google Authenticator, conçus pour les appareils mobiles et de bureau.
-    hu_hu: A 2FAuth egy webes, önállóan kiszolgáló alternatíva a Google Authenticator egyetlen használatú kódjainak (OTP) generátorának, amelyet mobil és asztali eszközök számára terveztek.
-    it_it: 2FAuth è un'alternativa auto-hosted basata su web ai generatori di codici a tempo singolo (OTP) come Google Authenticator, progettati per dispositivi mobili e desktop.
-    ru_ru: 2FAuth - это веб-базовая самохостинговая альтернатива генераторам одноразовых кодов (OTP) вроде Google Authenticator, разработанные для мобильных и настольных устройств.
-    pl_pl: 2FAuth to alternatywa samohostowana na podstawie sieci web do generatorów kodów jednorazowych (OTP) takich jak Google Authenticator, zaprojektowana dla urządzeń mobilnych i stacjonarnych.
-    pt_br: 2FAuth é uma alternativa auto-hospedada baseada na web aos geradores de códigos de uso único (OTP) como o Google Authenticator, projetados para dispositivos móveis e desktop.
-    sv_se: 2FAuth är en självhärdad webbaserad alternativ till One Time Passcode (OTP) -genererare som Google Authenticator, utformad för både mobila och skrivbordsenheter.
-    uk_ua: 2FAuth - це веб-базова самохостингова альтернатива генераторам одноразових кодів (OTP) на кшталт Google Authenticator, розроблена для мобільних та стільниць пристроїв.
-  developer: Bubka
-  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/icon.png
+    developer: Bubka
+  icon: https://upload.wikimedia.org/wikipedia/commons/0/0e/Clickhouse.png
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/screenshot-2.png
@@ -72,6 +63,6 @@ x-casaos:
   thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/thumbnail.png
   tips: {}
   title:
-    en_us: 2FAuth
+    en_us: ClickHouse
   index: /
-  port_map: "8000"
+  port_map: "8123"
