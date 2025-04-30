@@ -1,0 +1,55 @@
+name: clickhouse
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    deploy:
+      resources:
+        reservations:
+          memory: 64M
+    network_mode: bridge
+    ports:
+      - target: 8123
+        published: "8123"
+        protocol: tcp
+      - target: 9000
+        published: "9000"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: bind
+        source: /DATA/AppData/clickhouse
+        target: /var/lib/clickhouse
+    x-casaos:
+      ports:
+        - container: "8123"
+          description:
+            en_us: ""
+      volumes:
+        - container: /var/lib/clickhouse
+          description:
+            en_us: ""
+    container_name: clickhouse
+x-casaos:
+  architectures:
+    - amd64
+    - "386"
+    - arm64
+    - arm
+  main: clickhouse
+  author: Kruceo
+  category: Database
+  description:
+    en_us: ClickHouse is a column-oriented database management system designed for high-performance analytical queries (OLAP – Online Analytical Processing). It is optimized for real-time data analysis on large volumes of data.
+    developer: ClickHouse team
+  icon: https://upload.wikimedia.org/wikipedia/commons/0/0e/Clickhouse.png
+  screenshot_link:
+    - https://clickhouse.com/_next/image?url=%2Fimages%2Fhomepage%2Fhome-hero-product-ui.png&w=1920&q=75
+    - https://clickhouse.com/uploads/make_before_break_38e22d6ab7.png
+  tagline:
+    en_us: ClickHouse is a column-oriented database management system designed for high-performance analytical queries (OLAP – Online Analytical Processing). It is optimized for real-time data analysis on large volumes of data.
+  thumbnail: https://clickhouse.com/_next/image?url=%2Fimages%2Fhomepage%2Fhome-hero-product-ui.png&w=1920&q=75
+  tips: {}
+  title:
+    en_us: ClickHouse
+  index: /
+  port_map: ""
